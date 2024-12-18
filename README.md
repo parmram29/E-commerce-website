@@ -29,3 +29,17 @@ the main purpose was to practice full-stack development
    ```bash
    cd server
    npm install
+
+## login information 
+username: newuser
+password: newpassword123
+
+## to start back end server
+1. (navigate to server directory) cd server
+2. node app.js
+
+## to start frontend
+1. cd client
+2. npm run dev
+
+## to verify copy links 
