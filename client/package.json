@@ -1,8 +1,11 @@
 {
-  "name": "client",
+  "name": "movie-database",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
+  "description": "A React and Node.js project for managing a movie database with JWT authentication.",
+  "author": "Your Name",
+  "license": "MIT",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
