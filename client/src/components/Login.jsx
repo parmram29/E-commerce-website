@@ -22,7 +22,7 @@ const Login = ({ setToken }) => {
       if (response.ok) {
         setMessage("Login successful!");
         setToken(data.token);
-        localStorage.setItem("token", data.token); // Save token in localStorage
+        localStorage.setItem("token", data.token); // save token in localStorage
       } else {
         setMessage(data.message || "An unexpected error occurred. Please try again.");
       }
