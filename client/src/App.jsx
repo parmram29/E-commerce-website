@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
-import Login from "./components/Login"; // import the Login component
+import Login from "./components/Login"; // import the login component
 import axios from "axios";
 
 const App = () => {
   const [token, setToken] = useState(""); // store the token from login
   const [movies, setMovies] = useState([]); // store the movies fetched from the backend
 
-  // Load token from localStorage when the app starts
+  // load token from localStorage when the app starts
   useEffect(() => {
     const savedToken = localStorage.getItem("token");
     if (savedToken) {
@@ -14,18 +14,19 @@ const App = () => {
     }
   }, []);
 
-  // Debug log to check when movies state is updated
+  // debug log to check when movies state is updated
   useEffect(() => {
     console.log("Movies state updated:", movies);
   }, [movies]);
 
-  // Fetch movies from the backend
+  // fetch movies from the backend
   const fetchMovies = async () => {
     try {
-      console.log("Fetching movies..."); // Debug log
+      console.log("Fetching movies..."); // debug log
       const response = await axios.get("http://localhost:5001/api/movies", {
         headers: { Authorization: `Bearer ${token}` },
       });
+      
       console.log("Fetched movies data:", response.data); // Debug log
       setMovies(response.data);
     } catch (error) {
@@ -34,13 +35,13 @@ const App = () => {
     }
   };
 
-  // Handle Logout
+  // handle logout
   const handleLogout = () => {
-    localStorage.removeItem("token"); // Clear the token from localStorage
-    setToken(""); // Reset the token state
+    localStorage.removeItem("token"); // clear the token from localStorage
+    setToken(""); // reset the token state
   };
 
-  // Render login if no token is present
+  // render login if no token is present
   if (!token) {
     return <Login setToken={setToken} />;
   }
