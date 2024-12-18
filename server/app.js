@@ -1,45 +1,45 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
-require("dotenv").config(); // Load environment variables
+require("dotenv").config(); // load environment variables from .env file
 
 const app = express();
 
-// Debug Middleware: Logs all incoming requests
+// debug middleware, logs all incoming requests to help debugging
 app.use((req, res, next) => {
   console.log(`Incoming request: ${req.method} ${req.url}`);
   next();
 });
 
-// Middleware
-app.use(express.json()); // Parse incoming JSON requests
-app.use(cors()); // Enable Cross-Origin Resource Sharing
+// middleware
+app.use(express.json()); // parse incoming JSON requests
+app.use(cors()); // enable Cross-Origin Resource Sharing
 
-// MongoDB Connection
+// mongoDB Connection
 mongoose
   .connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(() => console.log("Connected to MongoDB"))
-  .catch((err) => console.error("Could not connect to MongoDB:", err));
+  .then(() => console.log("Connected to MongoDB")) //verifying login whether successful or not
+  .catch((err) => console.error("Could not connect to MongoDB:", err)); //log the errors
 
-// Routes
-const userRoutes = require("./routes/authRoutes");
-const movieRoutes = require("./routes/movieRoutes");
+//routes
+const userRoutes = require("./routes/authRoutes"); //user auth routes
+const movieRoutes = require("./routes/movieRoutes"); //movie routes
 
-app.use("/api/auth", userRoutes); // Auth routes
-app.use("/api/movies", movieRoutes); // Movie routes
+app.use("/api/auth", userRoutes); // ALL auth routes
+app.use("/api/movies", movieRoutes); // ALL movie routes
 
-// Default Route
+// default route
 app.get("/", (req, res) => {
   res.send("Backend server is running!");
 });
 
-// Error Handling for Undefined Routes
+// error handling for undefined routes
 app.use((req, res) => {
   res.status(404).send("Route not found");
 });
 
-// Start the Server
-const PORT = process.env.PORT || 5000; // Default to 5000 if PORT is not set in .env
+// start the Server
+const PORT = process.env.PORT || 5000; // default to 5000 if port is not set in .env
 app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+  console.log(`Server is running on port ${PORT}`); //login SERVER startup message
 });
