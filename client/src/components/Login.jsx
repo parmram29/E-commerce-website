@@ -36,7 +36,7 @@ const Login = ({ setToken }) => {
     <div
       className="flex justify-center items-center min-h-screen bg-cover bg-center"
       style={{
-        backgroundImage: `url('https://cdn.pixabay.com/photo/2016/11/29/04/17/audience-1866738_1280.jpg')`,
+        backgroundImage: `url('https://img.freepik.com/free-photo/view-3d-cinema-theatre-room_23-2151067056.jpg')`,
       }}
     >
       <form
