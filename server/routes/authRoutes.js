@@ -5,44 +5,54 @@ const User = require("../models/User");
 
 const router = express.Router();
 
-// Debug log to verify route registration
+// debug log to verify route registration
 console.log("Auth routes loaded.");
 
+// login route
 router.post("/login", async (req, res) => {
-  console.log("Login route hit"); // Confirms route is accessed
+  console.log("Login route hit"); // confirms route is accessed
 
   const { username, password } = req.body;
-  console.log("Request body received:", req.body); // Logs request body
+  console.log("Request body received:", req.body); // logs request body
 
   try {
-    // Find the user in the database
+    // find the user in the database
     const user = await User.findOne({ username });
-    console.log("User found in database:", user); // Log user object
+    console.log("User found in database:", user); // log user object
 
     if (!user) {
       console.log("User not found in database");
-      return res.status(404).json({ message: "Invalid username or password" });
+      return res.status(404).json({
+        message: "No account exists with that username. Please sign up or try again.",
+      });
     }
 
-    // Compare the password with the stored hashed password
+    // compare the password with the stored hashed password
     const isPasswordValid = await bcrypt.compare(password, user.password);
-    console.log("Password valid:", isPasswordValid); // Log result of password comparison
+    console.log("Password valid:", isPasswordValid); // log result of password comparison
 
     if (!isPasswordValid) {
       console.log("Password mismatch");
-      return res.status(401).json({ message: "Invalid username or password" });
+      return res.status(401).json({
+        message: "Incorrect password. Please try again.",
+      });
     }
 
-    // Generate a JWT token
+    // JWT token
     const token = jwt.sign({ id: user._id }, "secret_key", { expiresIn: "1h" });
-    console.log("Token generated:", token); // Log token generation
+    console.log("Token generated:", token); // log token generation
 
-    res.status(200).json({ message: "Login successful", token });
+    res.status(200).json({
+      message: "Login successful!",
+      token,
+    });
   } catch (error) {
-    console.error("Error during login:", error); // Log unexpected errors
-    res.status(500).json({ message: "An error occurred", error });
+    console.error("Error during login:", error); // log unexpected errors
+    res.status(500).json({
+      message: "An error occurred while logging in. Please try again later.",
+    });
   }
 });
 
-// Export the router
+// export the router
 module.exports = router;
