@@ -24,7 +24,7 @@ const Login = ({ setToken }) => {
         setToken(data.token);
         localStorage.setItem("token", data.token); // Save token in localStorage
       } else {
-        setMessage(`Error: ${data.message}`);
+        setMessage(data.message || "An unexpected error occurred. Please try again.");
       }
     } catch (error) {
       console.error("Error logging in:", error);
@@ -33,12 +33,17 @@ const Login = ({ setToken }) => {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-100">
+    <div
+      className="flex justify-center items-center min-h-screen bg-cover bg-center"
+      style={{
+        backgroundImage: `url('https://cdn.pixabay.com/photo/2016/11/29/04/17/audience-1866738_1280.jpg')`,
+      }}
+    >
       <form
         onSubmit={handleSubmit}
-        className="bg-white p-6 rounded-lg shadow-md w-full max-w-sm"
+        className="bg-white bg-opacity-90 p-6 rounded-lg shadow-md w-full max-w-sm"
       >
-        <h1 className="text-2xl font-bold mb-4 text-center">Login</h1>
+        <h1 className="text-2xl font-bold mb-6 text-center text-gray-800">Login</h1>
         <div className="mb-4">
           <input
             type="text"
@@ -70,4 +75,3 @@ const Login = ({ setToken }) => {
 };
 
 export default Login;
-
